@@ -44,4 +44,42 @@ public class MenuService {
 
         return menu;
     }
+
+    // 전 클래스의 타입이 if 문이기 때문에 boolean 으로 지정
+    public boolean registMenu(MenuDTO menu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.insertMenu(sqlSession,menu);
+
+        // 트렌젝션
+        if (result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return  result > 0 ? true : false;
+
+    }
+
+    public boolean updateMenu(MenuDTO menu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.updateMenu(sqlSession,menu);
+
+        if (result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return  result > 0 ? true : false;
+
+    }
 }

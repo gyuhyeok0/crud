@@ -1,4 +1,6 @@
-package com.ohgiraffers.section01.xmlconfig;
+package com.ohgiraffers.section02.javaconfig;
+
+import com.ohgiraffers.section01.xmlconfig.MenuDTO;
 
 import java.util.List;
 
@@ -10,10 +12,10 @@ public class PrintResult {
      */
 
 
-    public void printMenuList(List<MenuDTO> menuList) {
+    public void printMenuList(List<com.ohgiraffers.section01.xmlconfig.MenuDTO> menuList) {
 
         System.out.println("전체 메뉴 조회의 결과는!!!");
-        for(MenuDTO menu : menuList) {
+        for(com.ohgiraffers.section01.xmlconfig.MenuDTO menu : menuList) {
 
             System.out.println(menu);
         }

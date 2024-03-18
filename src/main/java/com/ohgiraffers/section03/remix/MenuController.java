@@ -1,4 +1,4 @@
-package com.ohgiraffers.section01.xmlconfig;
+package com.ohgiraffers.section03.remix;
 
 /* 필기.
  *   Controller 의 역할
@@ -7,6 +7,7 @@ package com.ohgiraffers.section01.xmlconfig;
  *   service 쪽으로 전달하기 위한 인스턴스를 담고 서비스의 비즈니스 로직을 담당하는 method 를 호출한다.
  *   또한 호출한 수행 결과를 반환 받아 어떠한 뷰를 다시 사용자에게 보여줄 것인지를 결정하는 역할을 한다.
  *  */
+
 
 import java.util.List;
 import java.util.Map;
@@ -33,13 +34,14 @@ public class MenuController {
 
     }
 
-    // key 는 code, value = 입력값
+
     public void selectMenuByCode(Map<String, String> parameter) {
 
-        // 사용자가 String 타입으로 입력한 값을 서버 측에서 int 로 파싱
-        int code = Integer.parseInt(parameter.get("code")); // map 값을 java int 로 번역
+//        System.out.println(parameter);
 
-        // 검증 과정
+        // 사용자가 String 타입으로 입력 한 값을 서버 측에서 int로 파싱
+        int code = Integer.parseInt(parameter.get("code"));
+
         MenuDTO menu = menuService.selectMenuByCode(code);
 
         if(menu != null) {
@@ -50,7 +52,6 @@ public class MenuController {
 
     }
 
-    // insert
     public void registMenu(Map<String, String> parameter) {
 
         String name = parameter.get("name");
@@ -62,16 +63,15 @@ public class MenuController {
         menu.setPrice(price);
         menu.setCategoryCode(categoryCode);
 
-        if (menuService.registMenu(menu)){
-
+        if(menuService.registMenu(menu)) {
             printResult.printSuccessMessage("insert");
         } else {
             printResult.printErrorMessage("insert");
         }
 
     }
-    //update
-    public void updateMenu(Map<String, String> parameter) {
+
+    public void modifyMenu(Map<String, String> parameter) {
 
         int code = Integer.parseInt(parameter.get("code"));
         String name = parameter.get("name");
@@ -84,11 +84,22 @@ public class MenuController {
         menu.setPrice(price);
         menu.setCategoryCode(categoryCode);
 
-        if (menuService.updateMenu(menu)){
-
-            printResult.printSuccessMessage("insert");
+        if(menuService.modifyMenu(menu)) {
+            printResult.printSuccessMessage("update");
         } else {
-            printResult.printErrorMessage("insert");
+            printResult.printErrorMessage("update");
+        }
+
+    }
+
+    public void deleteMenu(Map<String, String> parameter) {
+
+        int code = Integer.parseInt(parameter.get("code"));
+
+        if(menuService.deleteMenu(code)) {
+            printResult.printSuccessMessage("delete");
+        } else {
+            printResult.printErrorMessage("delete");
         }
 
     }
